@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:tict_test/blocks/date_picker_cubit.dart';
+import 'package:tict_test/blocks/date_picker_state.dart';
 import 'package:tict_test/widgets/child_widget.dart';
 
 class ParentWidget extends StatefulWidget {
@@ -10,48 +13,38 @@ class ParentWidget extends StatefulWidget {
 }
 
 class _ParentWidgetState extends State<ParentWidget> {
-  late DateTime _selectedDate = DateTime.now();
-
-  Future<void> _showDatePicker(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    String dayOfWeek = DateFormat('EEEE').format(_selectedDate);
+    return BlocBuilder<DateCubit, DateState>(
+      builder: (context, state) {
+        String dayOfWeek = DateFormat('EEEE').format(state.selectedDate);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ChildWidget(
-              showDatePickerCallback: () {
-                _showDatePicker(context);
-              },
-              customTextWidget: Text(
-                'Day of Week: $dayOfWeek',
-              ),
-            ),
-            ChildWidget(
-              showDatePickerCallback: () {
-                _showDatePicker(context);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ChildWidget(
+                  showDatePickerCallback: () {
+                    context.read<DateCubit>().showDatePickerDialog(context);
+                  },
+                  customTextWidget: Text(
+                    'Day of Week: $dayOfWeek',
+                  ),
+                  selectedDate: state.selectedDate,
+                ),
+                ChildWidget(
+                  showDatePickerCallback: () {
+                    context.read<DateCubit>().showDatePickerDialog(context);
+                  },
+                  selectedDate: state.selectedDate,
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

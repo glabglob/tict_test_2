@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tict_test/blocks/date_picker_cubit.dart';
 import 'package:tict_test/widgets/parent_widget.dart';
 
 void main() {
@@ -15,7 +17,10 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Date Picker Example'),
         ),
-        body: const ParentWidget(),
+        body: BlocProvider(
+          create: (context) => DateCubit(),
+          child: const ParentWidget(),
+        ),
       ),
     );
   }
