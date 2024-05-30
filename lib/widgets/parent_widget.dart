@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:tict_test/blocks/date_picker_cubit.dart';
-import 'package:tict_test/blocks/date_picker_state.dart';
+import 'package:tict_test/blocks/date_picker_cubit/date_picker_cubit.dart';
+import 'package:tict_test/blocks/date_picker_cubit/date_picker_state.dart';
 import 'package:tict_test/widgets/child_widget.dart';
 
 class ParentWidget extends StatefulWidget {

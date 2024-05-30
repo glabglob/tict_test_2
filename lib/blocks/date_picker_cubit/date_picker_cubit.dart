@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tict_test/blocks/date_picker_state.dart';
+import 'package:tict_test/blocks/date_picker_cubit/date_picker_state.dart';
 
 class DateCubit extends Cubit<DateState> {
   DateCubit() : super(DateState(DateTime.now()));
